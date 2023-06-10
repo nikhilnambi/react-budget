@@ -15,20 +15,38 @@ function App() {
   const [isExpense, setIsExpense] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [entryId, setEntryId] = useState();
+  const [incomeTotal, setIncomeTotal] = useState(0);
+  const [expenseTotal, setExpenseTotal] = useState(0);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     if (!isOpen && entryId) {
       const index = entries.findIndex((entry) => entry.id === entryId);
       const newEntries = [...entries];
-      console.log(newEntries)
+      console.log(newEntries);
       newEntries[index].description = description;
       newEntries[index].isExpense = isExpense;
       newEntries[index].value = value;
       setEntries(newEntries);
       resetEntry();
     }
-    
+    // eslint-disable-next-line 
   }, [isOpen]);
+
+  useEffect(() => {
+    let totalIncome = 0;
+    let totalExpense = 0;
+
+    entries.map((entry) => {
+      if (entry.isExpense) {
+        return (totalExpense += Number(entry.value));
+      }
+      return (totalIncome +=  Number(entry.value));
+    });
+    setTotal(totalIncome - totalExpense);
+    setExpenseTotal(totalExpense);
+    setIncomeTotal(totalIncome);
+  }, [entries]);
 
   function deleteEntry(id) {
     const result = entries.filter((entry) => entry.id !== id);
@@ -46,9 +64,9 @@ function App() {
     resetEntry();
   }
 
-  function resetEntry(){
-    setDescription('');
-    setValue('');
+  function resetEntry() {
+    setDescription("");
+    setValue("");
     setIsExpense(true);
   }
 
@@ -64,14 +82,13 @@ function App() {
       setIsExpense(entry.isExpense);
       setIsOpen(true);
     }
-    
   }
 
   return (
     <Container>
       <MainHeader title={"Budget"} />
-      <DisplayBalance title="Your Balance" value="2340.98" size="small" />
-      <DisplayBalances />
+      <DisplayBalance title="Your Balance" value={total} size="small" />
+      <DisplayBalances expenseTotal={expenseTotal} incomeTotal={incomeTotal}/>
       <MainHeader title="History" type="h3" />
       <EntryLines
         entries={entries}
@@ -109,25 +126,25 @@ var initialEntries = [
   {
     id: 1,
     description: "Work income",
-    value: "$1000,00",
+    value: 1000.0,
     isExpense: false,
   },
   {
     id: 2,
     description: "Water bill",
-    value: "$20.00",
+    value: 20.0,
     isExpense: true,
   },
   {
     id: 3,
     description: "Rent",
-    value: "$20.00",
+    value: 20.0,
     isExpense: true,
   },
   {
     id: 4,
     description: "Power bill",
-    value: "$50",
+    value: 50.0,
     isExpense: true,
   },
 ];
