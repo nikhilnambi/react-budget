@@ -7,6 +7,8 @@ import DisplayBalances from "./components/DisplayBalances";
 import { useEffect, useState } from "react";
 import EntryLines from "./components/EntryLines";
 import ModalEdit from "./components/ModalEdit";
+import { Provider } from 'react-redux'
+
 
 function App() {
   const [entries, setEntries] = useState(initialEntries);
