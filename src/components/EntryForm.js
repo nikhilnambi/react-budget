@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { Checkbox, Form, Segment } from "semantic-ui-react";
 
 function EntryForm({
@@ -39,8 +39,6 @@ function EntryForm({
           onChange={() => setIsExpense((oldState) => !oldState)}
         />
       </Segment>
-      
-  
     </>
   );
 }

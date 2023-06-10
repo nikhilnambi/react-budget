@@ -88,7 +88,7 @@ function App() {
 
   return (
     <Container>
-      <MainHeader title={"Budget"} />
+      <MainHeader title="Budget" />
       <DisplayBalance title="Your Balance" value={total} size="small" />
       <DisplayBalances expenseTotal={expenseTotal} incomeTotal={incomeTotal}/>
       <MainHeader title="History" type="h3" />
