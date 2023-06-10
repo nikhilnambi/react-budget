@@ -28,7 +28,7 @@ function App() {
       newEntries[index].isExpense = isExpense;
       newEntries[index].value = value;
       setEntries(newEntries);
-     
+      resetEntry();
     }
     // eslint-disable-next-line 
   }, [isOpen]);
